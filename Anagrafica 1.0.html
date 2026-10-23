@@ -10,7 +10,6 @@
             --bg-main: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #1e293b;
-            --text-muted: #64748b;
             --border: #e2e8f0;
             --radius: 12px;
         }
@@ -39,7 +38,7 @@
             padding-bottom: 10px;
         }
 
-        /* Card del Form */
+        /* Form Card */
         form {
             background: var(--card-bg);
             padding: 30px;
@@ -107,7 +106,7 @@
             transform: scale(0.98);
         }
 
-        /* Sezione Tabella */
+        /* Table Section */
         .table-container {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -136,7 +135,7 @@
         td {
             padding: 16px 20px;
             border-bottom: 1px solid var(--border);
-            color: var(--text-main); /* Assicura che il testo sia sempre visibile e scuro */
+            color: var(--text-main);
             font-size: 0.95rem;
             background-color: #ffffff;
         }
@@ -208,7 +207,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Le nuove righe inserite compariranno qui dinamicamente -->
+                    <!-- Nessuna riga fissa qui dentro, partiamo puliti -->
                 </tbody>
             </table>
         </div>
@@ -219,32 +218,32 @@
         const tabella = document.getElementById('tabellaAnagrafica').getElementsByTagName('tbody')[0];
 
         form.addEventListener('submit', function(event) {
+            // Evita il ricaricamento della pagina
             event.preventDefault();
 
-            // Lettura dei valori
-            const nome = document.getElementById('nome').value;
-            const cognome = document.getElementById('cognome').value;
-            const indirizzo = document.getElementById('indirizzo').value;
-            const citta = document.getElementById('citta').value;
-            const eta = document.getElementById('eta').value;
+            // Leggiamo e puliamo i valori da eventuali spazi vuoti
+            const nome = document.getElementById('nome').value.trim();
+            const cognome = document.getElementById('cognome').value.trim();
+            const indirizzo = document.getElementById('indirizzo').value.trim();
+            const citta = document.getElementById('citta').value.trim();
+            const eta = document.getElementById('eta').value.trim();
 
-            // Creazione nuova riga e celle
+            // Sicurezza: se manca anche un solo valore, blocchiamo tutto per evitare righe vuote
+            if (!nome || !cognome || !indirizzo || !citta || !eta) {
+                return;
+            }
+
+            // Inseriamo la nuova riga nella tabella
             const nuovaRiga = tabella.insertRow();
             
-            const cellaNome = nuovaRiga.insertCell(0);
-            const cellaCognome = nuovaRiga.insertCell(1);
-            const cellaIndirizzo = nuovaRiga.insertCell(2);
-            const cellaCitta = nuevaRiga.insertCell(3);
-            const cellaEta = nuovaRiga.insertCell(4);
+            // Creiamo le celle e assegnamo direttamente il testo
+            nuovaRiga.insertCell(0).textContent = nome;
+            nuovaRiga.insertCell(1).textContent = cognome;
+            nuovaRiga.insertCell(2).textContent = indirizzo;
+            nuovaRiga.insertCell(3).textContent = citta;
+            nuovaRiga.insertCell(4).textContent = eta;
 
-            // Assegnazione del testo (usando textContent per evitare problemi di visualizzazione)
-            cellaNome.textContent = nome;
-            cellaCognome.textContent = cognome;
-            cellaIndirizzo.textContent = indirizzo;
-            cellaCitta.textContent = citta;
-            cellaEta.textContent = eta;
-
-            // Pulizia del form
+            // Puliamo i campi del form per il prossimo inserimento
             form.reset();
         });
     </script>
