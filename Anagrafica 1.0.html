@@ -1,0 +1,158 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabella Anagrafica - Compito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f4f4f9;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Inserisci i Dati Anagrafici</h2>
+
+    <!-- Form con i campi richiesti -->
+    <form id="anagraficaForm">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required>
+        </div>
+        <div class="form-group">
+            <label for="cognome">Cognome:</label>
+            <input type="text" id="cognome" required>
+        </div>
+        <div class="form-group">
+            <label for="indirizzo">Indirizzo:</label>
+            <input type="text" id="indirizzo" required>
+        </div>
+        <div class="form-group">
+            <label for="citta">Città:</label>
+            <input type="text" id="citta" required>
+        </div>
+        <div class="form-group">
+            <label for="eta">Età:</label>
+            <input type="number" id="eta" required>
+        </div>
+        <button type="submit">Aggiungi alla Tabella</button>
+    </form>
+
+    <h2>Tabella Anagrafica</h2>
+    <table id="tabellaAnagrafica">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Indirizzo</th>
+                <th>Città</th>
+                <th>Età</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Le nuove righe aggiunte tramite JavaScript appariranno qui -->
+        </tbody>
+    </table>
+
+    <script>
+        // Selezioniamo il form e il corpo della tabella
+        const form = document.getElementById('anagraficaForm');
+        const tabella = document.getElementById('tabellaAnagrafica').getElementsByTagName('tbody')[0];
+
+        // Ascoltiamo l'evento di invio del form (clic sul bottone)
+        form.addEventListener('submit', function(event) {
+            // event.preventDefault() impedisce alla pagina di ricaricarsi
+            event.preventDefault();
+
+            // 1. Leggiamo i valori inseriti nei campi di input (stringhe e numeri)
+            const nome = document.getElementById('nome').value;
+            const cognome = document.getElementById('cognome').value;
+            const indirizzo = document.getElementById('indirizzo').value;
+            const citta = document.getElementById('citta').value;
+            const eta = document.getElementById('eta').value;
+
+            // 2. Creiamo una nuova riga (tr) nella tabella
+            const nuovaRiga = tabella.insertRow();
+
+            // 3. Creiamo le singole celle (td) per ogni colonna
+            const cellaNome = nuovaRiga.insertCell(0);
+            const cellaCognome = nuevaRiga.insertCell(1);
+            const cellaIndirizzo = nuovaRiga.insertCell(2);
+            const cellaCitta = nuovaRiga.insertCell(3);
+            const cellaEta = nuovaRiga.insertCell(4);
+
+            // 4. Inseriamo i dati testuali all'interno delle celle
+            cellaNome.textContent = nome;
+            cellaCognome.textContent = cognome;
+            cellaIndirizzo.textContent = indirizzo;
+            cellaCitta.textContent = citta;
+            cellaEta.textContent = eta;
+
+            // 5. Ripuliamo i campi del form per il prossimo inserimento
+            form.reset();
+        });
+    </script>
+
+</body>
+</html>
