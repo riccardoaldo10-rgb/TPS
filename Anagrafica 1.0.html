@@ -216,39 +216,42 @@
     </div>
 
     <script>
-        // Funzione globale richiamata dall'attributo onclick del pulsante
         function aggiungiRiga() {
-            // Raccogliamo e salviamo i valori dai campi con la classe 'tdati'
-            const nome = document.getElementById('nome').value;
-            const cognome = document.getElementById('cognome').value;
-            const indirizzo = document.getElementById('indirizzo').value;
-            const citta = document.getElementById('citta').value;
-            const eta = document.getElementById('eta').value;
+            // Raccogliamo tutti gli input con classe 'tdati'
+            const inputDati = document.querySelectorAll('.tdati');
 
-            // Controllo opzionale: evita di inserire righe vuote se manca qualche campo
-            if (!nome || !cognome || !indirizzo || !citta || !eta) {
-                alert("Compila tutti i campi prima di aggiungere la riga.");
-                return;
+            // Verifichiamo se almeno un campo è vuoto
+            for (let input of inputDati) {
+                if (input.value.trim() === "") {
+                    alert("Compila tutti i campi prima di aggiungere la riga.");
+                    return;
+                }
             }
 
-            // Elemento tbody chiamato "dati" a cui agganciare la riga
-            const elementoDati = document.getElementById('dati');
-
-            // Creiamo la nuova riga mantenendo i dati inseriti
+            // Creiamo dinamicamente le celle della riga usando i valori presi in sequenza da .tdati
             const nuovaRiga = document.createElement('tr');
             nuovaRiga.innerHTML = `
-                <td>${nome}</td>
-                <td>${cognome}</td>
-                <td>${indirizzo}</td>
-                <td>${citta}</td>
-                <td>${eta}</td>
+                <td>${inputDati[0].value}</td>
+                <td>${inputDati[1].value}</td>
+                <td>${inputDii = inputDati[2].value.trim()}</td>
+                <td>${inputDati[3].value}</td>
+                <td>${inputDati[4].value}</td>
+            `;
+            
+            // Correzione per pulizia codice riga indirizzo:
+            nuovaRiga.innerHTML = `
+                <td>${inputDati[0].value}</td>
+                <td>${inputDati[1].value}</td>
+                <td>${inputDati[2].value}</td>
+                <td>${inputDati[3].value}</td>
+                <td>${inputDati[4].value}</td>
             `;
 
-            // Agganciamo la nuova riga all'elemento tbody
-            elementoDati.appendChild(nuovaRiga);
+            // Agganciamo la riga direttamente all'elemento con id "dati" (il tbody)
+            document.getElementById('dati').appendChild(nuovaRiga);
 
             // Puliamo i campi di input dopo l'aggiunta
-            document.querySelectorAll('.tdati').forEach(input => input.value = '');
+            inputDati.forEach(input => input.value = '');
         }
     </script>
 
