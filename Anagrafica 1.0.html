@@ -169,7 +169,7 @@
         
         <h2>Gestione Anagrafica</h2>
 
-        <!-- Area di inserimento (senza tag form) -->
+        <!-- Area di inserimento (senza form) -->
         <div class="form-container">
             <div class="form-group">
                 <label for="nome">Nome</label>
@@ -191,8 +191,8 @@
                 <label for="eta">Età</label>
                 <input type="number" id="eta" class="tdati" placeholder="es. 25">
             </div>
-            <!-- Pulsante con type="button" -->
-            <button type="button" id="btnAggiungi">Aggiungi alla Tabella</button>
+            <!-- Pulsante con type="button" e chiamata diretta alla funzione onclick -->
+            <button type="button" onclick="aggiungiRiga()">Aggiungi alla Tabella</button>
         </div>
 
         <h2>Elenco Registrati</h2>
@@ -216,11 +216,9 @@
     </div>
 
     <script>
-        const btnAggiungi = document.getElementById('btnAggiungi');
-        const elementoDati = document.getElementById('dati');
-
-        btnAggiungi.addEventListener('click', function() {
-            // Leggiamo e salviamo i valori correnti inseriti nei campi con classe 'tdati'
+        // Funzione globale richiamata dall'attributo onclick del pulsante
+        function aggiungiRiga() {
+            // Raccogliamo e salviamo i valori dai campi con la classe 'tdati'
             const nome = document.getElementById('nome').value.trim();
             const cognome = document.getElementById('cognome').value.trim();
             const indirizzo = document.getElementById('indirizzo').value.trim();
@@ -233,6 +231,9 @@
                 return;
             }
 
+            // Elemento tbody chiamato "dati" a cui agganciare la riga
+            const elementoDati = document.getElementById('dati');
+
             // Creiamo la nuova riga mantenendo i dati inseriti
             const nuovaRiga = document.createElement('tr');
             nuovaRiga.innerHTML = `
@@ -243,12 +244,12 @@
                 <td>${eta}</td>
             `;
 
-            // Agganciamo la nuova riga all'elemento tbody chiamato "dati"
+            // Agganciamo la nuova riga all'elemento tbody
             elementoDati.appendChild(nuovaRiga);
 
             // Puliamo i campi di input dopo l'aggiunta
             document.querySelectorAll('.tdati').forEach(input => input.value = '');
-        });
+        }
     </script>
 
 </body>
