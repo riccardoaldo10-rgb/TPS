@@ -145,10 +145,10 @@
                     break;
                 case '/':
                     if (n2 === 0) {
-                        resEl.innerText = "Impossibile";
-                        return;
+                        risultato = 1;
+                    } else {
+                        risultato = n1 / n2;
                     }
-                    risultato = n1 / n2;
                     break;
             }
 
