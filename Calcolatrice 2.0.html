@@ -122,15 +122,15 @@
         }
 
         function calcola(operazione) {
-            const inputs = getInputs();
             const resEl = document.getElementById("risultato");
-
-            if (!inputs) {
+    
+            if (document.getElementById("num1") == "" || document.getElementById("num2") == "") {
                 resEl.innerText = "Errore";
                 return;
             }
 
-            const { n1, n2 } = inputs;
+            const n1=parseFloat(document.getElementById("num1").value);
+            const n2=parseFloat(document.getElementById("num2").value);
             let risultato = 0;
 
             switch(operazione) {
@@ -144,7 +144,7 @@
                     risultato = n1 * n2;
                     break;
                 case '/':
-                    if (n2 === 0) {
+                    if (n2 == 0) {
                         risultato = 1;
                     } else {
                         risultato = n1 / n2;
