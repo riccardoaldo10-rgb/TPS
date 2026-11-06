@@ -84,17 +84,6 @@
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
 
-            /* Pulsante Uguale ("=") evidenziato */
-            button:nth-of-type(5) {
-                background: #818cf8;
-                color: #ffffff;
-            }
-
-            button:nth-of-type(5):hover {
-                background: #6366f1;
-                box-shadow: 0 8px 15px rgba(99, 102, 241, 0.4);
-            }
-
             /* Area Risultato */
             p#risultato {
                 width: 320px;
@@ -114,51 +103,65 @@
     </head>
     <body>
         <script>
-        let operazione = "";
-        function somma(){
-            operazione="somma";
+        function getInputs() {
+            const val1 = document.getElementById("num1").value.trim();
+            const val2 = document.getElementById("num2").value.trim();
+            
+            if (val1 === "" || val2 === "") {
+                return null;
+            }
+            
+            const n1 = parseFloat(val1);
+            const n2 = parseFloat(val2);
+            
+            if (isNaN(n1) || isNaN(n2)) {
+                return null;
+            }
+            
+            return { n1, n2 };
         }
-        function sottrazione(){
-            operazione="sottrazione";
-        }
-        function moltiplicazione(){
-            operazione="moltiplicazione";
-        }
-        function divisione(){
-            operazione="divisione";
-        }
-        function uguale(){
-            const n1=parseFloat(document.getElementById("num1").value);
-            const n2=parseFloat(document.getElementById("num2").value);
-            if(document.getElementById("num1").value=="" || document.getElementById("num2").value=="" || (operazione=="divisione" && document.getElementById("num2").value=="0")){
-                document.getElementById("risultato").innerText="1";
+
+        function calcola(operazione) {
+            const inputs = getInputs();
+            const resEl = document.getElementById("risultato");
+
+            if (!inputs) {
+                resEl.innerText = "Errore";
                 return;
             }
-            if(operazione==""){
-                document.getElementById("risultato").innerText="1";
-                return;
-            }
+
+            const { n1, n2 } = inputs;
             let risultato = 0;
-            if(operazione=="somma"){
-                risultato=n1+n2;
-            }else if(operazione=="sottrazione"){
-                risultato=n1-n2;
-            }else if(operazione=="moltiplicazione"){
-                risultato=n1*n2;
-            }else if(operazione=="divisione"){
-                risultato=n1/n2;
+
+            switch(operazione) {
+                case '+':
+                    risultato = n1 + n2;
+                    break;
+                case '-':
+                    risultato = n1 - n2;
+                    break;
+                case '*':
+                    risultato = n1 * n2;
+                    break;
+                case '/':
+                    if (n2 === 0) {
+                        resEl.innerText = "Impossibile";
+                        return;
+                    }
+                    risultato = n1 / n2;
+                    break;
             }
-            document.getElementById("risultato").innerText=risultato;
+
+            resEl.innerText = risultato;
         }
         </script>
         <h1>Calcolatrice</h1>
-        <input type="text" id="num1"><br>
-        <input type="text" id="num2"><br>
-        <button onclick="somma()">+</button>
-        <button onclick="sottrazione()">-</button>
-        <button onclick="moltiplicazione()">*</button>
-        <button onclick="divisione()">/</button>
-        <button onclick="uguale()">=</button>
+        <input type="text" id="num1" placeholder="Primo numero"><br>
+        <input type="text" id="num2" placeholder="Secondo numero"><br>
+        <button onclick="calcola('+')">+</button>
+        <button onclick="calcola('-')">-</button>
+        <button onclick="calcola('*')">*</button>
+        <button onclick="calcola('/')">/</button>
         <p id="risultato"></p>
     </body>
 </html>
